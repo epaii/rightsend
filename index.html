@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>右键快传 RightSend — 数据同步，局域网速度更快</title>
+<meta name="description" content="电脑文件右键一扫同步到手机，局域网直传、满速、不耗手机流量，手机不用装 App。">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230b1220'/%3E%3Cg fill='%233ed3ea'%3E%3Crect x='7' y='7' width='6' height='6'/%3E%3Crect x='19' y='7' width='6' height='6'/%3E%3Crect x='7' y='19' width='6' height='6'/%3E%3Crect x='19' y='19' width='3' height='3'/%3E%3Crect x='24' y='24' width='2' height='2'/%3E%3C/g%3E%3C/svg%3E">
+<style>
+  :root{
+    --d0:#0a1120; --d1:#101a2b; --d2:#16233a;
+    --dline:rgba(226,236,250,.12);
+    --dtx:#eef2f8; --dtx2:#aab6c9; --dtx3:#7d8ba1;
+    --l0:#f6f8fb; --l1:#ffffff; --l2:#eef2f8;
+    --lline:#e2e8f0;
+    --ltx:#16202f; --ltx2:#4c586b; --ltx3:#6f7c90;
+    --ac:#3ed3ea; --ac-dark:#0e7c94;
+    --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+    --ease:cubic-bezier(.22,1,.36,1);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{font-family:"Microsoft YaHei UI","Microsoft YaHei","PingFang SC","Segoe UI",system-ui,sans-serif;color:var(--ltx);background:var(--l0);line-height:1.7;-webkit-font-smoothing:antialiased}
+  a{text-decoration:none;color:inherit}
+  :focus-visible{outline:2px solid var(--ac);outline-offset:3px}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 24px}
+  .kicker{display:block;font-family:var(--mono);font-size:12px;letter-spacing:.04em;color:var(--ltx3);margin-bottom:12px}
+  .sec{padding:88px 0}
+  .sec-h{font-size:28px;line-height:1.25;font-weight:600;letter-spacing:-.01em;margin-bottom:12px}
+  .sec-sub{font-size:15px;line-height:1.7;color:var(--ltx2);max-width:620px}
+
+  /* dark surface base */
+  .on-dark{background:var(--d1);color:var(--dtx)}
+  .on-dark .kicker{color:var(--dtx3)}
+  .on-dark .sec-h{color:var(--dtx)}
+  .on-dark .sec-sub{color:var(--dtx2)}
+
+  /* buttons */
+  .cta-row{display:flex;gap:12px;flex-wrap:wrap;justify-content:center}
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-width:180px;height:44px;padding:0 20px;border-radius:10px;font-size:14px;font-weight:500;transition:background-color .16s var(--ease),border-color .16s var(--ease)}
+  .btn svg{width:16px;height:16px;flex-shrink:0}
+  .btn-primary{background:var(--ac);color:#06202a}
+  .btn-primary:hover{background:#6ae0f0}
+  .btn-quiet{background:var(--d2);color:var(--dtx);border:1px solid var(--dline)}
+  .btn-quiet:hover{background:#1c2b45}
+  .btn-solid{background:var(--ltx);color:#fff}
+  .btn-solid:hover{background:#2a3850}
+  .btn-outline{background:transparent;color:var(--ltx);border:1px solid var(--lline)}
+  .btn-outline:hover{background:var(--l2)}
+  .btn-first{order:-1}
+
+  /* ===== hero ===== */
+  .hero{background:var(--d0);color:var(--dtx);padding:96px 0 88px;text-align:center}
+  .hero-in{display:flex;flex-direction:column;align-items:center}
+  .brand-lockup{display:flex;flex-direction:column;align-items:center}
+  .brand-name{font-size:36px;font-weight:600;line-height:1.2;letter-spacing:.03em}
+  .brand-en{font-family:var(--mono);font-size:12px;letter-spacing:.22em;color:var(--dtx2);margin-top:8px}
+  .hero h1{font-size:44px;line-height:1.16;font-weight:600;letter-spacing:-.02em;margin:32px 0 20px}
+  .hero h1 em{font-style:normal;color:var(--ac)}
+  .lead{font-size:16px;line-height:1.75;color:var(--dtx2);max-width:560px;margin:0 auto 32px}
+  .lead strong{color:var(--dtx);font-weight:500}
+  .hero-note{font-family:var(--mono);font-size:12px;color:var(--dtx3);margin-top:16px}
+  .hero-note span{color:var(--dtx2)}
+
+  /* three real product views — the one bright moment */
+  .shots{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;width:100%;max-width:900px;margin:56px auto 0;text-align:left}
+  .shot{background:var(--d1);border:1px solid var(--dline);border-radius:14px;overflow:hidden}
+  .shot-pic{height:240px;background:#080e19;display:flex;align-items:center;justify-content:center;overflow:hidden;position:relative}
+  .shot-pic img{max-width:100%;max-height:100%;object-fit:contain;display:block}
+  .shot-cap{padding:12px 16px;display:flex;align-items:baseline;gap:8px}
+  .shot-cap .n{font-family:var(--mono);font-size:12px;color:var(--dtx3)}
+  .shot-cap b{font-size:14px;font-weight:500;color:var(--dtx)}
+  .shot-cap span{font-size:12px;color:var(--dtx3)}
+  .shot-focus .shot-cap .n{color:var(--ac)}
+  /* signature: scan corners on the core step */
+  .corner{position:absolute;width:14px;height:14px;border-style:solid;border-color:var(--ac);border-width:0;opacity:.85;pointer-events:none}
+  .corner.tl{top:12px;left:12px;border-top-width:2px;border-left-width:2px}
+  .corner.tr{top:12px;right:12px;border-top-width:2px;border-right-width:2px}
+  .corner.bl{bottom:12px;left:12px;border-bottom-width:2px;border-left-width:2px}
+  .corner.br{bottom:12px;right:12px;border-bottom-width:2px;border-right-width:2px}
+  /* step 1: context menu drawn in code (dark, matches qr window) */
+  .menu{width:238px;background:#101f36;border:1px solid rgba(255,255,255,.09);border-radius:10px;box-shadow:0 18px 44px rgba(0,0,0,.45);padding:5px;font-size:12.5px;color:#c6d4e8}
+  .mi{padding:6px 12px;line-height:1.45;border-radius:5px}
+  .mi-sep{height:1px;background:rgba(255,255,255,.08);margin:4px 8px}
+  .mi-brand{display:flex;align-items:center;gap:8px;color:var(--ac);font-weight:500;background:rgba(62,211,234,.09)}
+  .mi-brand svg{width:14px;height:14px;flex-shrink:0}
+  /* step 3: phone file list drawn in code (dark, matches qr window) */
+  .ph{width:200px;background:#101f36;border:1px solid rgba(255,255,255,.09);border-radius:14px;overflow:hidden;box-shadow:0 18px 44px rgba(0,0,0,.45);color:#dbe6f4}
+  .ph-top{display:flex;justify-content:space-between;align-items:center;padding:9px 12px;font-size:11px;color:#8fa2bd;border-bottom:1px solid rgba(255,255,255,.07)}
+  .ph-dot{display:flex;align-items:center;gap:5px}
+  .ph-dot i{width:5px;height:5px;border-radius:50%;background:var(--ac)}
+  .ph-search{margin:9px 10px 7px;padding:6px 10px;background:rgba(255,255,255,.06);border-radius:8px;font-size:10.5px;color:#66799a}
+  .ph-tools{display:flex;align-items:center;gap:6px;margin:0 10px 8px}
+  .ph-chip{padding:5px 10px;border:1px solid rgba(255,255,255,.12);border-radius:8px;font-size:10.5px;color:#8fa2bd}
+  .ph-up{margin-left:auto;padding:5px 12px;background:var(--ac);color:#06202a;font-weight:600;border-radius:8px;font-size:10.5px}
+  .ph-row{display:flex;align-items:center;gap:8px;padding:7px 10px;border-top:1px solid rgba(255,255,255,.06)}
+  .ph-ico{width:26px;height:26px;border-radius:6px;display:grid;place-items:center;font-size:8px;font-weight:700;color:var(--ac);background:rgba(62,211,234,.13);flex-shrink:0}
+  .ph-fm{min-width:0}
+  .ph-fm b{display:block;font-size:10.5px;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .ph-fm span{font-size:9px;color:#66799a}
+  .ph-eye{margin-left:auto;flex-shrink:0}
+  .ph-eye svg{width:14px;height:14px;color:#66799a}
+
+  /* ===== feature checklist ===== */
+  .fl-split{display:grid;grid-template-columns:300px 1fr;gap:64px;align-items:start}
+  .fl-intro{position:sticky;top:32px}
+  .fl-list{display:flex;flex-direction:column}
+  .fl-item{display:flex;align-items:flex-start;gap:12px;padding:12px 0;font-size:16px;line-height:1.6;color:var(--dtx2);border-bottom:1px solid var(--dline)}
+  .fl-item:last-child{border-bottom:none}
+  .fl-item svg{width:18px;height:18px;flex-shrink:0;margin-top:5px;color:var(--ac)}
+  .fl-item strong{color:var(--dtx);font-weight:500}
+
+  /* ===== why / how / matrix ===== */
+  .surf-white{background:var(--l1);border-top:1px solid var(--lline);border-bottom:1px solid var(--lline)}
+  .grid-2{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin-top:32px}
+  .grid-4{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:32px}
+  .card{background:var(--l1);border:1px solid var(--lline);border-radius:14px;padding:24px}
+  .surf-white .card{background:var(--l0)}
+  .card .ci{width:36px;height:36px;border-radius:9px;background:var(--l2);color:var(--ltx2);display:grid;place-items:center;margin-bottom:16px}
+  .card .ci svg{width:18px;height:18px}
+  .card h4{font-size:15px;font-weight:500;margin-bottom:6px}
+  .card p{font-size:13px;line-height:1.65;color:var(--ltx2)}
+  .card .meta{font-family:var(--mono);font-size:11px;color:var(--ltx3);margin-top:12px}
+
+  /* ===== faq ===== */
+  .faq-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-top:32px}
+  .qa{background:var(--l1);border:1px solid var(--lline);border-radius:12px;padding:20px}
+  .qa h4{font-size:14px;font-weight:500;margin-bottom:6px}
+  .qa p{font-size:13px;line-height:1.65;color:var(--ltx2)}
+
+  /* ===== final cta ===== */
+  .final{text-align:center;background:var(--l1);border-top:1px solid var(--lline)}
+  .final .sec-sub{margin:0 auto 24px}
+  footer{background:var(--d0);color:var(--dtx3);padding:28px 0;font-family:var(--mono);font-size:12px;text-align:center}
+  footer span{color:var(--dtx2)}
+
+  @media(max-width:860px){
+    .hero{padding:72px 0 64px}
+    .hero h1{font-size:32px}
+    .shots{grid-template-columns:1fr;max-width:360px;margin-top:40px}
+    .shot-pic{height:220px}
+    .grid-2,.grid-4,.faq-grid{grid-template-columns:1fr}
+    .fl-split{grid-template-columns:1fr;gap:24px}
+    .fl-intro{position:static}
+    .sec{padding:64px 0}
+    .sec-h{font-size:24px}
+  }
+</style>
+</head>
+<body>
+
+<!-- ===== HERO ===== -->
+<section class="hero" id="top">
+  <div class="wrap hero-in">
+    <div class="brand-lockup">
+      <div class="brand-name">右键快传</div>
+      <div class="brand-en">RIGHTSEND</div>
+    </div>
+    <h1>数据同步，<em>局域网速度更快</em></h1>
+    <p class="lead">电脑上的文件，<strong>右键一点、手机一扫</strong>就到手。<br>走局域网满速直传，<strong>不耗手机流量</strong>，手机还不用装 App。</p>
+    <div class="cta-row">
+      <a href="#download" class="btn btn-primary" data-platform="windows">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 3v12m0 0l-4-4m4 4l4-4M4 17v3h16v-3"/></svg>
+        下载 Windows 版
+      </a>
+      <a href="#download" class="btn btn-quiet" data-platform="mac">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="6" y="2" width="12" height="20" rx="2"/><path d="M11 18h2"/></svg>
+        下载 macOS 版
+      </a>
+    </div>
+    <p class="hero-note">无需注册 · 下载即用</p>
+
+    <div class="shots">
+      <div class="shot">
+        <div class="shot-pic">
+          <div class="menu" role="img" aria-label="macOS 右键菜单，突出右键快传共享文件与共享目录两项">
+            <div class="mi">新建文件夹</div>
+            <div class="mi">显示简介</div>
+            <div class="mi">排序方式</div>
+            <div class="mi-sep"></div>
+            <div class="mi">拷贝</div>
+            <div class="mi-sep"></div>
+            <div class="mi mi-brand"><svg viewBox="0 0 16 16" fill="#3ed3ea"><rect x="1" y="1" width="5.5" height="5.5" rx="1"/><rect x="9.5" y="1" width="5.5" height="5.5" rx="1"/><rect x="1" y="9.5" width="5.5" height="5.5" rx="1"/><rect x="9.5" y="9.5" width="2.5" height="2.5"/><rect x="13" y="13" width="2" height="2"/></svg>右键快传 · 共享文件</div>
+            <div class="mi mi-brand"><svg viewBox="0 0 16 16" fill="#3ed3ea"><rect x="1" y="1" width="5.5" height="5.5" rx="1"/><rect x="9.5" y="1" width="5.5" height="5.5" rx="1"/><rect x="1" y="9.5" width="5.5" height="5.5" rx="1"/><path d="M9.5 9.5h3v3h-3z"/><rect x="13" y="13" width="2" height="2"/></svg>右键快传 · 共享目录</div>
+          </div>
+        </div>
+        <div class="shot-cap"><span class="n">01</span><b>电脑右键</b><span>选「共享文件」</span></div>
+      </div>
+      <div class="shot shot-focus">
+        <div class="shot-pic">
+          <img src="images/step2-qrcode.png" alt="弹出的二维码共享窗口：手机扫码即可查看或下载，显示在线设备、下载中、上传中、已完成统计与允许手机上传开关">
+          <span class="corner tl"></span><span class="corner tr"></span><span class="corner bl"></span><span class="corner br"></span>
+        </div>
+        <div class="shot-cap"><span class="n">02</span><b>弹出二维码</b><span>核心一步</span></div>
+      </div>
+      <div class="shot">
+        <div class="shot-pic">
+          <div class="ph" role="img" aria-label="手机浏览器打开共享目录：搜索、排序、上传工具栏和文件列表">
+            <div class="ph-top"><span>产品素材 · 右键快传</span><span class="ph-dot"><i></i>已连接</span></div>
+            <div class="ph-search">搜索本目录</div>
+            <div class="ph-tools"><span class="ph-chip">名称 ↑</span><span class="ph-up">上传</span></div>
+            <div class="ph-row">
+              <span class="ph-ico">PDF</span>
+              <div class="ph-fm"><b>项目方案.pdf</b><span>12.4 MB · 刚刚</span></div>
+              <span class="ph-eye"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg></span>
+            </div>
+            <div class="ph-row">
+              <span class="ph-ico">PNG</span>
+              <div class="ph-fm"><b>产品图.png</b><span>3.1 MB · 刚刚</span></div>
+              <span class="ph-eye"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg></span>
+            </div>
+            <div class="ph-row">
+              <span class="ph-ico">MP4</span>
+              <div class="ph-fm"><b>演示视频.mp4</b><span>48.2 MB · 刚刚</span></div>
+              <span class="ph-eye"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg></span>
+            </div>
+          </div>
+        </div>
+        <div class="shot-cap"><span class="n">03</span><b>手机一扫</b><span>同步到手，不用装 App</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FEATURE CHECKLIST ===== -->
+<section class="sec on-dark">
+  <div class="wrap">
+    <div class="fl-split">
+      <div class="fl-intro">
+        <span class="kicker">功能一览</span>
+        <h2 class="sec-h">从共享到接收，功能一次给全</h2>
+        <p class="sec-sub">文件怎么传，它都想到了。</p>
+      </div>
+      <div class="fl-list">
+        <div class="fl-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg><span><strong>共享单个文件 / 整个目录 / 手机往电脑上传</strong></span></div>
+        <div class="fl-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg><span><strong>局域网满速直传</strong>，跑满 WiFi，不耗手机流量</span></div>
+        <div class="fl-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg><span><strong>手机扫码就用</strong>，不用装 App</span></div>
+        <div class="fl-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg><span><strong>微信里直接打开、保存、转发</strong>，视频边下边播</span></div>
+        <div class="fl-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg><span><strong>目录云盘式浏览</strong>：搜索、排序、在线预览、原图下载</span></div>
+        <div class="fl-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg><span><strong>二维码一键更新</strong>，旧链接立即作废</span></div>
+        <div class="fl-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg><span><strong>目录链接持久有效</strong>，可反复使用</span></div>
+        <div class="fl-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg><span><strong>外网二维码</strong>，异地也能传</span></div>
+        <div class="fl-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg><span><strong>访问密码保护</strong>，私密文件更安全</span></div>
+        <div class="fl-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg><span><strong>Windows / macOS 双平台</strong></span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== WHY ===== -->
+<section class="sec surf-white" id="why">
+  <div class="wrap">
+    <span class="kicker">为什么是它</span>
+    <h2 class="sec-h">同一网络内直传，速度跑满 WiFi</h2>
+    <p class="sec-sub">文件在设备之间直连，没有服务器中转，有多大带宽就有多快。</p>
+    <div class="grid-2">
+      <div class="card"><div class="ci"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 2L3 14h8l-1 8 10-12h-8l1-8z"/></svg></div><h4>局域网满速</h4><p>大视频、压缩包也不限速，有多快的 WiFi 就有多快。</p><div class="meta">核心优势</div></div>
+      <div class="card"><div class="ci"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 7h16M4 12h16M4 17h16"/></svg></div><h4>电脑手机数据同步</h4><p>共享文件、共享目录、让手机往电脑传，三个右键入口覆盖常用场景。</p><div class="meta">双向同步</div></div>
+      <div class="card"><div class="ci"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3 3 15 0 18"/></svg></div><h4>不耗手机流量</h4><p>全程走 WiFi，不用移动数据、不上传云端，没外网也能传。</p></div>
+      <div class="card"><div class="ci"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="6" y="2" width="12" height="20" rx="2"/><path d="M11 18h2"/></svg></div><h4>手机不用装 App</h4><p>扫码后用浏览器直接收，微信里也能打开保存，少一次注册。</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== HOW ===== -->
+<section class="sec" id="how">
+  <div class="wrap">
+    <span class="kicker">怎么用</span>
+    <h2 class="sec-h">右键、扫码、收到</h2>
+    <p class="sec-sub">不用注册、不用配 IP，装好就能用。</p>
+    <div class="grid-4">
+      <div class="card"><div class="ci"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M8 3l4 4-4 4"/><path d="M4 11V5a2 2 0 012-2h3"/></svg></div><h4>01 电脑右键</h4><p>在文件或文件夹上点右键，选「共享文件 / 共享目录」。</p></div>
+      <div class="card"><div class="ci"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><path d="M14 14h3v3h-3zM20 20h1v1h-1z"/></svg></div><h4>02 弹出二维码</h4><p>屏幕上出现深色二维码窗口，目录链接还能反复用。</p></div>
+      <div class="card"><div class="ci"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="6" y="2" width="12" height="20" rx="2"/><path d="M11 18h2"/></svg></div><h4>03 手机一扫</h4><p>浏览器直接打开、下载，微信里也能保存转发。</p></div>
+      <div class="card"><div class="ci"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20 6L9 17l-5-5"/></svg></div><h4>04 完成同步</h4><p>传完自动停；共享目录还能让手机往回传文件。</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FEATURE MATRIX ===== -->
+<section class="sec surf-white" id="feature">
+  <div class="wrap">
+    <span class="kicker">能做什么</span>
+    <h2 class="sec-h">一个右键，四种用法</h2>
+    <p class="sec-sub">从单个文件到整个目录，从电脑发手机到手机传电脑。</p>
+    <div class="grid-4">
+      <div class="card"><div class="ci"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6"/></svg></div><h4>共享文件</h4><p>单个文件扫码即传，链接一次一换，安全不过期。</p></div>
+      <div class="card"><div class="ci"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 7a2 2 0 012-2h4l2 2h8a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2z"/></svg></div><h4>共享目录</h4><p>整个文件夹变成可浏览的网盘页，地址持久、可更新。</p></div>
+      <div class="card"><div class="ci"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 16V4m0 0L8 8m4-4l4 4M4 18v3h16v-3"/></svg></div><h4>接收上传</h4><p>选个文件夹右键，手机传来的文件直接落到那里。</p></div>
+      <div class="card"><div class="ci"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3 3 15 0 18"/></svg></div><h4>外网二维码</h4><p>不在同一 WiFi 也能传，公网可用。</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FAQ ===== -->
+<section class="sec" id="faq">
+  <div class="wrap">
+    <span class="kicker">常见问题</span>
+    <h2 class="sec-h">你可能想问的</h2>
+    <div class="faq-grid">
+      <div class="qa"><h4>必须在同一个 WiFi 吗？</h4><p>局域网传文件时需要。好处是速度快、不耗流量、不用上传云端；异地传输可用外网二维码。</p></div>
+      <div class="qa"><h4>手机真的不用装 App？</h4><p>不用。扫码后用手机浏览器就能下载；在微信里打开也能保存和转发。</p></div>
+      <div class="qa"><h4>安全吗？文件会上传到哪？</h4><p>不会上云，文件只在你的设备之间直连传输。访问链接带随机 token，单文件链接一次一换。</p></div>
+      <div class="qa"><h4>支持哪些系统？</h4><p>电脑端支持 Windows 和 macOS；手机端不限系统，能扫码、能上网就行。</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FINAL CTA ===== -->
+<section class="sec final" id="download">
+  <div class="wrap">
+    <h2 class="sec-h">现在就下载，三步就能用</h2>
+    <p class="sec-sub">下载、右键、扫码——三步之后你就知道它有多省事。</p>
+    <div class="cta-row">
+      <a href="#" class="btn btn-solid" data-platform="windows">下载 Windows 版</a>
+      <a href="#" class="btn btn-outline" data-platform="mac">下载 macOS 版</a>
+    </div>
+    <p class="hero-note" style="color:var(--ltx3)">当前为预览版，下载链接待配置</p>
+  </div>
+</section>
+
+<footer>右键快传 RightSend · 数据同步，局域网速度更快 · <span>Windows / macOS · 局域网直传</span></footer>
+
+<script>
+(function () {
+  var ua = navigator.userAgent || '';
+  var want = /Mac|iPhone|iPad|iPod/i.test(ua) ? 'mac' : 'windows';
+  document.querySelectorAll('[data-platform]').forEach(function (btn) {
+    var active = btn.getAttribute('data-platform') === want;
+    var inHero = !!btn.closest('.hero');
+    btn.classList.remove('btn-primary', 'btn-quiet', 'btn-solid', 'btn-outline', 'btn-first');
+    btn.classList.add(inHero ? (active ? 'btn-primary' : 'btn-quiet')
+                             : (active ? 'btn-solid' : 'btn-outline'));
+    if (active) btn.classList.add('btn-first');
+  });
+})();
+</script>
+</body>
+</html>
