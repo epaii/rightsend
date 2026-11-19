@@ -131,8 +131,10 @@
   /* ===== final cta ===== */
   .final{text-align:center;background:var(--l1);border-top:1px solid var(--lline)}
   .final .sec-sub{margin:0 auto 24px}
-  footer{background:var(--d0);color:var(--dtx3);padding:28px 0;font-family:var(--mono);font-size:12px;text-align:center}
+  footer{background:var(--d0);color:var(--dtx3);padding:28px 0;font-family:var(--mono);font-size:12px;text-align:center;line-height:2}
   footer span{color:var(--dtx2)}
+  footer a{color:var(--ac);text-decoration:none}
+  footer a:hover{text-decoration:underline}
 
   /* ===== i18n ===== */
   .en{display:none}
@@ -327,7 +329,12 @@
   </div>
 </section>
 
-<footer><span class="zh">右键快传 RightSend · 数据同步，局域网速度更快</span><span class="en">RightSend · File sync at LAN speed</span> · <span><span class="zh">Windows / macOS · 局域网直传</span><span class="en">Windows / macOS · Direct LAN transfer</span></span></footer>
+<footer>
+  <div class="wrap">
+    <div><span class="zh">右键快传 RightSend · 数据同步，局域网速度更快</span><span class="en">RightSend · File sync at LAN speed</span> · <span><span class="zh">Windows / macOS · 局域网直传</span><span class="en">Windows / macOS · Direct LAN transfer</span></span></div>
+    <div><span class="zh">联系：</span><span class="en">Contact: </span><a href="mailto:ivitee@qq.com">ivitee@qq.com</a></div>
+  </div>
+</footer>
 
 <script>
 (function(){
