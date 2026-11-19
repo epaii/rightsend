@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="zh-CN" data-lang="zh">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -134,6 +134,13 @@
   footer{background:var(--d0);color:var(--dtx3);padding:28px 0;font-family:var(--mono);font-size:12px;text-align:center}
   footer span{color:var(--dtx2)}
 
+  /* ===== i18n ===== */
+  .en{display:none}
+  html[data-lang="en"] .zh{display:none}
+  html[data-lang="en"] .en{display:inline}
+  #lang-toggle{position:fixed;top:14px;right:16px;z-index:60;min-width:40px;height:30px;padding:0 10px;border:1px solid rgba(226,236,250,.2);border-radius:8px;background:rgba(16,26,43,.88);color:#eef2f8;font:500 12px var(--mono);cursor:pointer;-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px)}
+  #lang-toggle:hover{background:#1c2b45}
+
   @media(max-width:860px){
     .hero{padding:72px 0 64px}
     .hero h1{font-size:32px}
@@ -148,75 +155,76 @@
 </style>
 </head>
 <body>
+<button id="lang-toggle" type="button" aria-label="Switch language">EN</button>
 
 <!-- ===== HERO ===== -->
 <section class="hero" id="top">
   <div class="wrap hero-in">
     <div class="brand-lockup">
-      <div class="brand-name">右键快传</div>
-      <div class="brand-en">RIGHTSEND</div>
+      <div class="brand-name"><span class="zh">右键快传</span><span class="en">RightSend</span></div>
+      <div class="brand-en"><span class="zh">RIGHTSEND</span><span class="en">RIGHT-CLICK FILE TRANSFER</span></div>
     </div>
-    <h1>数据同步，<em>局域网速度更快</em></h1>
-    <p class="lead">电脑上的文件，<strong>右键一点、手机一扫</strong>就到手。<br>走局域网满速直传，<strong>不耗手机流量</strong>，手机还不用装 App。</p>
+    <h1><span class="zh">数据同步，<em>局域网速度更快</em></span><span class="en">Sync files, <em>at LAN speed</em></span></h1>
+    <p class="lead"><span class="zh">电脑上的文件，<strong>右键一点、手机一扫</strong>就到手。<br>走局域网满速直传，<strong>不耗手机流量</strong>，手机还不用装 App。</span><span class="en">Files on your PC, <strong>right-click and scan</strong> and they are on your phone.<br>Full-speed over your LAN, <strong>zero mobile data</strong>, no app to install.</span></p>
     <div class="cta-row">
       <a href="#download" class="btn btn-primary" data-platform="windows">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 3v12m0 0l-4-4m4 4l4-4M4 17v3h16v-3"/></svg>
-        下载 Windows 版
+        <span class="zh">下载 Windows 版</span><span class="en">Download for Windows</span>
       </a>
       <a href="#download" class="btn btn-quiet" data-platform="mac">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="6" y="2" width="12" height="20" rx="2"/><path d="M11 18h2"/></svg>
-        下载 macOS 版
+        <span class="zh">下载 macOS 版</span><span class="en">Download for macOS</span>
       </a>
     </div>
-    <p class="hero-note">无需注册 · 下载即用</p>
+    <p class="hero-note"><span class="zh">无需注册 · 下载即用</span><span class="en">No sign-up · Ready to use</span></p>
 
     <div class="shots">
       <div class="shot">
         <div class="shot-pic">
-          <div class="menu" role="img" aria-label="macOS 右键菜单，突出右键快传共享文件与共享目录两项">
-            <div class="mi">新建文件夹</div>
-            <div class="mi">显示简介</div>
-            <div class="mi">排序方式</div>
+          <div class="menu" role="img" aria-label="macOS 右键菜单，突出右键快传共享文件与共享目录两项" data-aria-zh="macOS 右键菜单，突出右键快传共享文件与共享目录两项" data-aria-en="Context menu with RightSend Share File and Share Folder highlighted">
+            <div class="mi"><span class="zh">新建文件夹</span><span class="en">New Folder</span></div>
+            <div class="mi"><span class="zh">显示简介</span><span class="en">Get Info</span></div>
+            <div class="mi"><span class="zh">排序方式</span><span class="en">Sort By</span></div>
             <div class="mi-sep"></div>
-            <div class="mi">拷贝</div>
+            <div class="mi"><span class="zh">拷贝</span><span class="en">Copy</span></div>
             <div class="mi-sep"></div>
-            <div class="mi mi-brand"><svg viewBox="0 0 16 16" fill="#3ed3ea"><rect x="1" y="1" width="5.5" height="5.5" rx="1"/><rect x="9.5" y="1" width="5.5" height="5.5" rx="1"/><rect x="1" y="9.5" width="5.5" height="5.5" rx="1"/><rect x="9.5" y="9.5" width="2.5" height="2.5"/><rect x="13" y="13" width="2" height="2"/></svg>右键快传 · 共享文件</div>
-            <div class="mi mi-brand"><svg viewBox="0 0 16 16" fill="#3ed3ea"><rect x="1" y="1" width="5.5" height="5.5" rx="1"/><rect x="9.5" y="1" width="5.5" height="5.5" rx="1"/><rect x="1" y="9.5" width="5.5" height="5.5" rx="1"/><path d="M9.5 9.5h3v3h-3z"/><rect x="13" y="13" width="2" height="2"/></svg>右键快传 · 共享目录</div>
+            <div class="mi mi-brand"><svg viewBox="0 0 16 16" fill="#3ed3ea"><rect x="1" y="1" width="5.5" height="5.5" rx="1"/><rect x="9.5" y="1" width="5.5" height="5.5" rx="1"/><rect x="1" y="9.5" width="5.5" height="5.5" rx="1"/><rect x="9.5" y="9.5" width="2.5" height="2.5"/><rect x="13" y="13" width="2" height="2"/></svg><span class="zh">右键快传 · 共享文件</span><span class="en">RightSend · Share File</span></div>
+            <div class="mi mi-brand"><svg viewBox="0 0 16 16" fill="#3ed3ea"><rect x="1" y="1" width="5.5" height="5.5" rx="1"/><rect x="9.5" y="1" width="5.5" height="5.5" rx="1"/><rect x="1" y="9.5" width="5.5" height="5.5" rx="1"/><path d="M9.5 9.5h3v3h-3z"/><rect x="13" y="13" width="2" height="2"/></svg><span class="zh">右键快传 · 共享目录</span><span class="en">RightSend · Share Folder</span></div>
           </div>
         </div>
-        <div class="shot-cap"><span class="n">01</span><b>电脑右键</b><span>选「共享文件」</span></div>
+        <div class="shot-cap"><span class="n">01</span><b><span class="zh">电脑右键</span><span class="en">Right-click</span></b><span><span class="zh">选「共享文件」</span><span class="en">Choose Share File</span></span></div>
       </div>
       <div class="shot shot-focus">
         <div class="shot-pic">
-          <img src="images/step2-qrcode.png" alt="弹出的二维码共享窗口：手机扫码即可查看或下载，显示在线设备、下载中、上传中、已完成统计与允许手机上传开关">
+          <img src="images/step2-qrcode.png" alt="弹出的二维码共享窗口：手机扫码即可查看或下载，显示在线设备、下载中、上传中、已完成统计与允许手机上传开关" data-aria-zh="弹出的二维码共享窗口：手机扫码即可查看或下载，显示在线设备、下载中、上传中、已完成统计与允许手机上传开关" data-aria-en="QR sharing window: scan to view or download, with online devices, download and upload counts, and an allow-upload switch">
           <span class="corner tl"></span><span class="corner tr"></span><span class="corner bl"></span><span class="corner br"></span>
         </div>
-        <div class="shot-cap"><span class="n">02</span><b>弹出二维码</b><span>核心一步</span></div>
+        <div class="shot-cap"><span class="n">02</span><b><span class="zh">弹出二维码</span><span class="en">QR code appears</span></b><span><span class="zh">核心一步</span><span class="en">The key step</span></span></div>
       </div>
       <div class="shot">
         <div class="shot-pic">
-          <div class="ph" role="img" aria-label="手机浏览器打开共享目录：搜索、排序、上传工具栏和文件列表">
-            <div class="ph-top"><span>产品素材 · 右键快传</span><span class="ph-dot"><i></i>已连接</span></div>
-            <div class="ph-search">搜索本目录</div>
-            <div class="ph-tools"><span class="ph-chip">名称 ↑</span><span class="ph-up">上传</span></div>
+          <div class="ph" role="img" aria-label="手机浏览器打开共享目录：搜索、排序、上传工具栏和文件列表" data-aria-zh="手机浏览器打开共享目录：搜索、排序、上传工具栏和文件列表" data-aria-en="Shared folder in a mobile browser: search, sort, upload toolbar and file list">
+            <div class="ph-top"><span><span class="zh">产品素材 · 右键快传</span><span class="en">Product Assets · RightSend</span></span><span class="ph-dot"><i></i><span class="zh">已连接</span><span class="en">Connected</span></span></div>
+            <div class="ph-search"><span class="zh">搜索本目录</span><span class="en">Search this folder</span></div>
+            <div class="ph-tools"><span class="ph-chip"><span class="zh">名称 ↑</span><span class="en">Name ↑</span></span><span class="ph-up"><span class="zh">上传</span><span class="en">Upload</span></span></div>
             <div class="ph-row">
               <span class="ph-ico">PDF</span>
-              <div class="ph-fm"><b>项目方案.pdf</b><span>12.4 MB · 刚刚</span></div>
+              <div class="ph-fm"><b><span class="zh">项目方案.pdf</span><span class="en">Project Plan.pdf</span></b><span>12.4 MB · <span class="zh">刚刚</span><span class="en">just now</span></span></div>
               <span class="ph-eye"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg></span>
             </div>
             <div class="ph-row">
               <span class="ph-ico">PNG</span>
-              <div class="ph-fm"><b>产品图.png</b><span>3.1 MB · 刚刚</span></div>
+              <div class="ph-fm"><b><span class="zh">产品图.png</span><span class="en">Product Shot.png</span></b><span>3.1 MB · <span class="zh">刚刚</span><span class="en">just now</span></span></div>
               <span class="ph-eye"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg></span>
             </div>
             <div class="ph-row">
               <span class="ph-ico">MP4</span>
-              <div class="ph-fm"><b>演示视频.mp4</b><span>48.2 MB · 刚刚</span></div>
+              <div class="ph-fm"><b><span class="zh">演示视频.mp4</span><span class="en">Demo Video.mp4</span></b><span>48.2 MB · <span class="zh">刚刚</span><span class="en">just now</span></span></div>
               <span class="ph-eye"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg></span>
             </div>
           </div>
         </div>
-        <div class="shot-cap"><span class="n">03</span><b>手机一扫</b><span>同步到手，不用装 App</span></div>
+        <div class="shot-cap"><span class="n">03</span><b><span class="zh">手机一扫</span><span class="en">Scan with phone</span></b><span><span class="zh">同步到手，不用装 App</span><span class="en">Files in hand, no app needed</span></span></div>
       </div>
     </div>
   </div>
@@ -227,21 +235,21 @@
   <div class="wrap">
     <div class="fl-split">
       <div class="fl-intro">
-        <span class="kicker">功能一览</span>
-        <h2 class="sec-h">从共享到接收，功能一次给全</h2>
-        <p class="sec-sub">文件怎么传，它都想到了。</p>
+        <span class="kicker"><span class="zh">功能一览</span><span class="en">FEATURES</span></span>
+        <h2 class="sec-h"><span class="zh">从共享到接收，功能一次给全</span><span class="en">Everything you need, from sharing to receiving</span></h2>
+        <p class="sec-sub"><span class="zh">文件怎么传，它都想到了。</span><span class="en">Every way to move a file, covered.</span></p>
       </div>
       <div class="fl-list">
-        <div class="fl-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg><span><strong>共享单个文件 / 整个目录 / 手机往电脑上传</strong></span></div>
-        <div class="fl-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg><span><strong>局域网满速直传</strong>，跑满 WiFi，不耗手机流量</span></div>
-        <div class="fl-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg><span><strong>手机扫码就用</strong>，不用装 App</span></div>
-        <div class="fl-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg><span><strong>微信里直接打开、保存、转发</strong>，视频边下边播</span></div>
-        <div class="fl-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg><span><strong>目录云盘式浏览</strong>：搜索、排序、在线预览、原图下载</span></div>
-        <div class="fl-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg><span><strong>二维码一键更新</strong>，旧链接立即作废</span></div>
-        <div class="fl-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg><span><strong>目录链接持久有效</strong>，可反复使用</span></div>
-        <div class="fl-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg><span><strong>外网二维码</strong>，异地也能传</span></div>
-        <div class="fl-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg><span><strong>访问密码保护</strong>，私密文件更安全</span></div>
-        <div class="fl-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg><span><strong>Windows / macOS 双平台</strong></span></div>
+        <div class="fl-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg><span><span class="zh"><strong>共享单个文件 / 整个目录 / 手机往电脑上传</strong></span><span class="en"><strong>Share one file, a whole folder, or upload from phone to PC</strong></span></span></div>
+        <div class="fl-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg><span><span class="zh"><strong>局域网满速直传</strong>，跑满 WiFi，不耗手机流量</span><span class="en"><strong>Full-speed LAN transfer</strong> — saturate your WiFi, zero mobile data</span></span></div>
+        <div class="fl-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg><span><span class="zh"><strong>手机扫码就用</strong>，不用装 App</span><span class="en"><strong>Just scan with your phone</strong> — no app needed</span></span></div>
+        <div class="fl-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg><span><span class="zh"><strong>微信里直接打开、保存、转发</strong>，视频边下边播</span><span class="en"><strong>Open, save and forward in WeChat</strong>; videos play while downloading</span></span></div>
+        <div class="fl-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg><span><span class="zh"><strong>目录云盘式浏览</strong>：搜索、排序、在线预览、原图下载</span><span class="en"><strong>Browse folders like a cloud drive</strong>: search, sort, preview, download originals</span></span></div>
+        <div class="fl-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg><span><span class="zh"><strong>二维码一键更新</strong>，旧链接立即作废</span><span class="en"><strong>Refresh the QR code in one click</strong>; old links expire instantly</span></span></div>
+        <div class="fl-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg><span><span class="zh"><strong>目录链接持久有效</strong>，可反复使用</span><span class="en"><strong>Persistent folder links</strong>, reusable any time</span></span></div>
+        <div class="fl-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg><span><span class="zh"><strong>外网二维码</strong>，异地也能传</span><span class="en"><strong>Remote QR code</strong> — transfer from anywhere</span></span></div>
+        <div class="fl-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg><span><span class="zh"><strong>访问密码保护</strong>，私密文件更安全</span><span class="en"><strong>Password protection</strong> keeps private files safer</span></span></div>
+        <div class="fl-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg><span><span class="zh"><strong>Windows / macOS 双平台</strong></span><span class="en"><strong>Windows and macOS</strong></span></span></div>
       </div>
     </div>
   </div>
@@ -250,14 +258,14 @@
 <!-- ===== WHY ===== -->
 <section class="sec surf-white" id="why">
   <div class="wrap">
-    <span class="kicker">为什么是它</span>
-    <h2 class="sec-h">同一网络内直传，速度跑满 WiFi</h2>
-    <p class="sec-sub">文件在设备之间直连，没有服务器中转，有多大带宽就有多快。</p>
+    <span class="kicker"><span class="zh">为什么是它</span><span class="en">WHY RIGHTSEND</span></span>
+    <h2 class="sec-h"><span class="zh">同一网络内直传，速度跑满 WiFi</span><span class="en">Direct transfer on the same network, at full WiFi speed</span></h2>
+    <p class="sec-sub"><span class="zh">文件在设备之间直连，没有服务器中转，有多大带宽就有多快。</span><span class="en">Files move device-to-device with no server in the middle — as fast as your connection allows.</span></p>
     <div class="grid-2">
-      <div class="card"><div class="ci"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 2L3 14h8l-1 8 10-12h-8l1-8z"/></svg></div><h4>局域网满速</h4><p>大视频、压缩包也不限速，有多快的 WiFi 就有多快。</p><div class="meta">核心优势</div></div>
-      <div class="card"><div class="ci"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 7h16M4 12h16M4 17h16"/></svg></div><h4>电脑手机数据同步</h4><p>共享文件、共享目录、让手机往电脑传，三个右键入口覆盖常用场景。</p><div class="meta">双向同步</div></div>
-      <div class="card"><div class="ci"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3 3 15 0 18"/></svg></div><h4>不耗手机流量</h4><p>全程走 WiFi，不用移动数据、不上传云端，没外网也能传。</p></div>
-      <div class="card"><div class="ci"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="6" y="2" width="12" height="20" rx="2"/><path d="M11 18h2"/></svg></div><h4>手机不用装 App</h4><p>扫码后用浏览器直接收，微信里也能打开保存，少一次注册。</p></div>
+      <div class="card"><div class="ci"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 2L3 14h8l-1 8 10-12h-8l1-8z"/></svg></div><h4><span class="zh">局域网满速</span><span class="en">Full LAN speed</span></h4><p><span class="zh">大视频、压缩包也不限速，有多快的 WiFi 就有多快。</span><span class="en">Big videos and archives are never throttled — as fast as your WiFi gets.</span></p><div class="meta"><span class="zh">核心优势</span><span class="en">KEY ADVANTAGE</span></div></div>
+      <div class="card"><div class="ci"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 7h16M4 12h16M4 17h16"/></svg></div><h4><span class="zh">电脑手机数据同步</span><span class="en">PC–phone sync</span></h4><p><span class="zh">共享文件、共享目录、让手机往电脑传，三个右键入口覆盖常用场景。</span><span class="en">Share files, share folders, upload from phone — three right-click actions cover the essentials.</span></p><div class="meta"><span class="zh">双向同步</span><span class="en">TWO-WAY SYNC</span></div></div>
+      <div class="card"><div class="ci"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3 3 15 0 18"/></svg></div><h4><span class="zh">不耗手机流量</span><span class="en">Zero mobile data</span></h4><p><span class="zh">全程走 WiFi，不用移动数据、不上传云端，没外网也能传。</span><span class="en">Everything runs over WiFi — no mobile data, no cloud upload, works without internet.</span></p></div>
+      <div class="card"><div class="ci"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="6" y="2" width="12" height="20" rx="2"/><path d="M11 18h2"/></svg></div><h4><span class="zh">手机不用装 App</span><span class="en">No app on your phone</span></h4><p><span class="zh">扫码后用浏览器直接收，微信里也能打开保存，少一次注册。</span><span class="en">Scan and receive in your browser, or open and save in WeChat — no sign-up.</span></p></div>
     </div>
   </div>
 </section>
@@ -265,14 +273,14 @@
 <!-- ===== HOW ===== -->
 <section class="sec" id="how">
   <div class="wrap">
-    <span class="kicker">怎么用</span>
-    <h2 class="sec-h">右键、扫码、收到</h2>
-    <p class="sec-sub">不用注册、不用配 IP，装好就能用。</p>
+    <span class="kicker"><span class="zh">怎么用</span><span class="en">HOW IT WORKS</span></span>
+    <h2 class="sec-h"><span class="zh">右键、扫码、收到</span><span class="en">Right-click, scan, receive</span></h2>
+    <p class="sec-sub"><span class="zh">不用注册、不用配 IP，装好就能用。</span><span class="en">No sign-up, no IP setup — install and go.</span></p>
     <div class="grid-4">
-      <div class="card"><div class="ci"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M8 3l4 4-4 4"/><path d="M4 11V5a2 2 0 012-2h3"/></svg></div><h4>01 电脑右键</h4><p>在文件或文件夹上点右键，选「共享文件 / 共享目录」。</p></div>
-      <div class="card"><div class="ci"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><path d="M14 14h3v3h-3zM20 20h1v1h-1z"/></svg></div><h4>02 弹出二维码</h4><p>屏幕上出现深色二维码窗口，目录链接还能反复用。</p></div>
-      <div class="card"><div class="ci"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="6" y="2" width="12" height="20" rx="2"/><path d="M11 18h2"/></svg></div><h4>03 手机一扫</h4><p>浏览器直接打开、下载，微信里也能保存转发。</p></div>
-      <div class="card"><div class="ci"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20 6L9 17l-5-5"/></svg></div><h4>04 完成同步</h4><p>传完自动停；共享目录还能让手机往回传文件。</p></div>
+      <div class="card"><div class="ci"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M8 3l4 4-4 4"/><path d="M4 11V5a2 2 0 012-2h3"/></svg></div><h4><span class="zh">01 电脑右键</span><span class="en">01 Right-click</span></h4><p><span class="zh">在文件或文件夹上点右键，选「共享文件 / 共享目录」。</span><span class="en">Right-click a file or folder and choose Share File / Share Folder.</span></p></div>
+      <div class="card"><div class="ci"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><path d="M14 14h3v3h-3zM20 20h1v1h-1z"/></svg></div><h4><span class="zh">02 弹出二维码</span><span class="en">02 QR code appears</span></h4><p><span class="zh">屏幕上出现深色二维码窗口，目录链接还能反复用。</span><span class="en">A dark QR window pops up; folder links can be reused.</span></p></div>
+      <div class="card"><div class="ci"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="6" y="2" width="12" height="20" rx="2"/><path d="M11 18h2"/></svg></div><h4><span class="zh">03 手机一扫</span><span class="en">03 Scan with phone</span></h4><p><span class="zh">浏览器直接打开、下载，微信里也能保存转发。</span><span class="en">Open and download in your browser, or save and share in WeChat.</span></p></div>
+      <div class="card"><div class="ci"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20 6L9 17l-5-5"/></svg></div><h4><span class="zh">04 完成同步</span><span class="en">04 Done</span></h4><p><span class="zh">传完自动停；共享目录还能让手机往回传文件。</span><span class="en">Transfer stops automatically; shared folders also let phones upload back.</span></p></div>
     </div>
   </div>
 </section>
@@ -280,14 +288,14 @@
 <!-- ===== FEATURE MATRIX ===== -->
 <section class="sec surf-white" id="feature">
   <div class="wrap">
-    <span class="kicker">能做什么</span>
-    <h2 class="sec-h">一个右键，四种用法</h2>
-    <p class="sec-sub">从单个文件到整个目录，从电脑发手机到手机传电脑。</p>
+    <span class="kicker"><span class="zh">能做什么</span><span class="en">WHAT IT DOES</span></span>
+    <h2 class="sec-h"><span class="zh">一个右键，四种用法</span><span class="en">One right-click, four ways to use it</span></h2>
+    <p class="sec-sub"><span class="zh">从单个文件到整个目录，从电脑发手机到手机传电脑。</span><span class="en">From one file to a whole folder, from PC to phone and back.</span></p>
     <div class="grid-4">
-      <div class="card"><div class="ci"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6"/></svg></div><h4>共享文件</h4><p>单个文件扫码即传，链接一次一换，安全不过期。</p></div>
-      <div class="card"><div class="ci"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 7a2 2 0 012-2h4l2 2h8a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2z"/></svg></div><h4>共享目录</h4><p>整个文件夹变成可浏览的网盘页，地址持久、可更新。</p></div>
-      <div class="card"><div class="ci"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 16V4m0 0L8 8m4-4l4 4M4 18v3h16v-3"/></svg></div><h4>接收上传</h4><p>选个文件夹右键，手机传来的文件直接落到那里。</p></div>
-      <div class="card"><div class="ci"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3 3 15 0 18"/></svg></div><h4>外网二维码</h4><p>不在同一 WiFi 也能传，公网可用。</p></div>
+      <div class="card"><div class="ci"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6"/></svg></div><h4><span class="zh">共享文件</span><span class="en">Share File</span></h4><p><span class="zh">单个文件扫码即传，链接一次一换，安全不过期。</span><span class="en">Scan to send a single file; a fresh link every time, never stale.</span></p></div>
+      <div class="card"><div class="ci"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 7a2 2 0 012-2h4l2 2h8a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2z"/></svg></div><h4><span class="zh">共享目录</span><span class="en">Share Folder</span></h4><p><span class="zh">整个文件夹变成可浏览的网盘页，地址持久、可更新。</span><span class="en">Turn a whole folder into a browsable drive page with a persistent, refreshable link.</span></p></div>
+      <div class="card"><div class="ci"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 16V4m0 0L8 8m4-4l4 4M4 18v3h16v-3"/></svg></div><h4><span class="zh">接收上传</span><span class="en">Receive Uploads</span></h4><p><span class="zh">选个文件夹右键，手机传来的文件直接落到那里。</span><span class="en">Right-click a folder and files from your phone land right there.</span></p></div>
+      <div class="card"><div class="ci"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3 3 15 0 18"/></svg></div><h4><span class="zh">外网二维码</span><span class="en">Remote QR</span></h4><p><span class="zh">不在同一 WiFi 也能传，公网可用。</span><span class="en">Transfer without sharing a WiFi — works over the internet.</span></p></div>
     </div>
   </div>
 </section>
@@ -295,13 +303,13 @@
 <!-- ===== FAQ ===== -->
 <section class="sec" id="faq">
   <div class="wrap">
-    <span class="kicker">常见问题</span>
-    <h2 class="sec-h">你可能想问的</h2>
+    <span class="kicker"><span class="zh">常见问题</span><span class="en">FAQ</span></span>
+    <h2 class="sec-h"><span class="zh">你可能想问的</span><span class="en">Questions you might have</span></h2>
     <div class="faq-grid">
-      <div class="qa"><h4>必须在同一个 WiFi 吗？</h4><p>局域网传文件时需要。好处是速度快、不耗流量、不用上传云端；异地传输可用外网二维码。</p></div>
-      <div class="qa"><h4>手机真的不用装 App？</h4><p>不用。扫码后用手机浏览器就能下载；在微信里打开也能保存和转发。</p></div>
-      <div class="qa"><h4>安全吗？文件会上传到哪？</h4><p>不会上云，文件只在你的设备之间直连传输。访问链接带随机 token，单文件链接一次一换。</p></div>
-      <div class="qa"><h4>支持哪些系统？</h4><p>电脑端支持 Windows 和 macOS；手机端不限系统，能扫码、能上网就行。</p></div>
+      <div class="qa"><h4><span class="zh">必须在同一个 WiFi 吗？</span><span class="en">Do we need the same WiFi?</span></h4><p><span class="zh">局域网传文件时需要。好处是速度快、不耗流量、不用上传云端；异地传输可用外网二维码。</span><span class="en">For LAN transfers, yes. The payoff is speed, zero mobile data and no cloud upload; use a remote QR code when apart.</span></p></div>
+      <div class="qa"><h4><span class="zh">手机真的不用装 App？</span><span class="en">Do I need an app on my phone?</span></h4><p><span class="zh">不用。扫码后用手机浏览器就能下载；在微信里打开也能保存和转发。</span><span class="en">No. Scan and download in your mobile browser, or open in WeChat to save and share.</span></p></div>
+      <div class="qa"><h4><span class="zh">安全吗？文件会上传到哪？</span><span class="en">Is it safe? Where do files go?</span></h4><p><span class="zh">不会上云，文件只在你的设备之间直连传输。访问链接带随机 token，单文件链接一次一换。</span><span class="en">Nowhere in the cloud — files move directly between your devices. Links carry random tokens; single-file links change every time.</span></p></div>
+      <div class="qa"><h4><span class="zh">支持哪些系统？</span><span class="en">Which systems are supported?</span></h4><p><span class="zh">电脑端支持 Windows 和 macOS；手机端不限系统，能扫码、能上网就行。</span><span class="en">Windows and macOS on desktop; any phone that can scan a QR code and open a browser.</span></p></div>
     </div>
   </div>
 </section>
@@ -309,19 +317,46 @@
 <!-- ===== FINAL CTA ===== -->
 <section class="sec final" id="download">
   <div class="wrap">
-    <h2 class="sec-h">现在就下载，三步就能用</h2>
-    <p class="sec-sub">下载、右键、扫码——三步之后你就知道它有多省事。</p>
+    <h2 class="sec-h"><span class="zh">现在就下载，三步就能用</span><span class="en">Download now, ready in three steps</span></h2>
+    <p class="sec-sub"><span class="zh">下载、右键、扫码——三步之后你就知道它有多省事。</span><span class="en">Download, right-click, scan — three steps and you will see how simple it is.</span></p>
     <div class="cta-row">
-      <a href="#" class="btn btn-solid" data-platform="windows">下载 Windows 版</a>
-      <a href="#" class="btn btn-outline" data-platform="mac">下载 macOS 版</a>
+      <a href="#" class="btn btn-solid" data-platform="windows"><span class="zh">下载 Windows 版</span><span class="en">Download for Windows</span></a>
+      <a href="#" class="btn btn-outline" data-platform="mac"><span class="zh">下载 macOS 版</span><span class="en">Download for macOS</span></a>
     </div>
-    <p class="hero-note" style="color:var(--ltx3)">当前为预览版，下载链接待配置</p>
+    <p class="hero-note" style="color:var(--ltx3)"><span class="zh">当前为预览版，下载链接待配置</span><span class="en">Preview build — download links coming soon</span></p>
   </div>
 </section>
 
-<footer>右键快传 RightSend · 数据同步，局域网速度更快 · <span>Windows / macOS · 局域网直传</span></footer>
+<footer><span class="zh">右键快传 RightSend · 数据同步，局域网速度更快</span><span class="en">RightSend · File sync at LAN speed</span> · <span><span class="zh">Windows / macOS · 局域网直传</span><span class="en">Windows / macOS · Direct LAN transfer</span></span></footer>
 
 <script>
+(function(){
+  var doc=document.documentElement;
+  var sys=/^zh\b/i.test((navigator.language||navigator.browserLanguage||'zh').toLowerCase())?'zh':'en';
+  var saved=null;
+  try{saved=localStorage.getItem('rs-lang')}catch(e){}
+  var TITLE_ZH='右键快传 RightSend — 数据同步，局域网速度更快';
+  var TITLE_EN='RightSend — File sync at LAN speed';
+  var DESC_ZH='电脑文件右键一扫同步到手机，局域网直传、满速、不耗手机流量，手机不用装 App。';
+  var DESC_EN='Right-click and scan to sync PC files to your phone. Full-speed LAN transfer, zero mobile data, no app needed.';
+  function apply(l){
+    doc.setAttribute('data-lang',l);
+    doc.lang=(l==='zh'?'zh-CN':'en');
+    document.title=(l==='zh'?TITLE_ZH:TITLE_EN);
+    var m=document.querySelector('meta[name="description"]');
+    if(m) m.content=(l==='zh'?DESC_ZH:DESC_EN);
+    document.querySelectorAll('[data-aria-zh]').forEach(function(el){
+      el.setAttribute('aria-label', l==='zh'?el.getAttribute('data-aria-zh'):el.getAttribute('data-aria-en'));
+    });
+    var btn=document.getElementById('lang-toggle');
+    if(btn){ btn.textContent=(l==='zh'?'EN':'中'); btn.setAttribute('aria-label', l==='zh'?'Switch to English':'切换到中文'); }
+    try{localStorage.setItem('rs-lang',l)}catch(e){}
+  }
+  apply(saved||sys);
+  document.getElementById('lang-toggle').addEventListener('click',function(){
+    apply(doc.getAttribute('data-lang')==='zh'?'en':'zh');
+  });
+})();
 (function () {
   var ua = navigator.userAgent || '';
   var want = /Mac|iPhone|iPad|iPod/i.test(ua) ? 'mac' : 'windows';
