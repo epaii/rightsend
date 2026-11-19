@@ -69,6 +69,9 @@
   .sec .cn-row .cn-label{color:var(--ltx3)}
   .sec .cn-row a{color:var(--ac-dark);border-bottom-color:rgba(14,124,148,.35)}
   .sec .cn-row a:hover{border-bottom-color:var(--ac-dark)}
+  .cn-row .lbl-gh{display:none}
+  html[data-source="cn"] .cn-row .lbl-gh{display:inline}
+  html[data-source="cn"] .cn-row .lbl-cn{display:none}
 
   /* three real product views — the one bright moment */
   .shots{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;width:100%;max-width:900px;margin:56px auto 0;text-align:left}
@@ -181,20 +184,21 @@
     <h1><span class="zh">数据同步，<em>局域网速度更快</em></span><span class="en">Sync files, <em>at LAN speed</em></span></h1>
     <p class="lead"><span class="zh">电脑上的文件，<strong>右键一点、手机一扫</strong>就到手。<br>走局域网满速直传，<strong>不耗手机流量</strong>，手机还不用装 App。</span><span class="en">Files on your PC, <strong>right-click and scan</strong> and they are on your phone.<br>Full-speed over your LAN, <strong>zero mobile data</strong>, no app to install.</span></p>
     <div class="cta-row">
-      <a href="https://github.com/epaii/rightsend/releases/latest/download/RightSend-Setup-1.0.0.exe" class="btn btn-primary" data-platform="windows">
+      <a href="https://github.com/epaii/rightsend/releases/latest/download/RightSend-Setup-1.0.0.exe" class="btn btn-primary" data-platform="windows" data-role="main" data-gh="https://github.com/epaii/rightsend/releases/latest/download/RightSend-Setup-1.0.0.exe" data-cn="https://gitee.com/epii/rightsend/releases/download/v1.0.0/RightSend-Setup-1.0.0.exe">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 3v12m0 0l-4-4m4 4l4-4M4 17v3h16v-3"/></svg>
         <span class="zh">下载 Windows 版</span><span class="en">Download for Windows</span>
       </a>
-      <a href="https://github.com/epaii/rightsend/releases/latest/download/RightSend-1.0.0.pkg" class="btn btn-quiet" data-platform="mac">
+      <a href="https://github.com/epaii/rightsend/releases/latest/download/RightSend-1.0.0.pkg" class="btn btn-quiet" data-platform="mac" data-role="main" data-gh="https://github.com/epaii/rightsend/releases/latest/download/RightSend-1.0.0.pkg" data-cn="https://gitee.com/epii/rightsend/releases/download/v1.0.0/RightSend-1.0.0.pkg">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="6" y="2" width="12" height="20" rx="2"/><path d="M11 18h2"/></svg>
         <span class="zh">下载 macOS 版</span><span class="en">Download for macOS</span>
       </a>
     </div>
     <div class="cn-row">
-      <span class="cn-label"><span class="zh">国内下载（Gitee，更快）：</span><span class="en">Faster download in China (Gitee):</span></span>
-      <a href="https://gitee.com/epii/rightsend/releases/download/v1.0.0/RightSend-Setup-1.0.0.exe" target="_blank" rel="noopener">Windows</a>
+      <span class="cn-label lbl-cn"><span class="zh">国内下载（Gitee，更快）：</span><span class="en">Faster download in China (Gitee):</span></span>
+      <span class="cn-label lbl-gh"><span class="zh">备用下载（GitHub）：</span><span class="en">Alternative (GitHub):</span></span>
+      <a href="https://gitee.com/epii/rightsend/releases/download/v1.0.0/RightSend-Setup-1.0.0.exe" target="_blank" rel="noopener" data-role="alt" data-gh="https://github.com/epaii/rightsend/releases/latest/download/RightSend-Setup-1.0.0.exe" data-cn="https://gitee.com/epii/rightsend/releases/download/v1.0.0/RightSend-Setup-1.0.0.exe">Windows</a>
       <span class="cn-label">·</span>
-      <a href="https://gitee.com/epii/rightsend/releases/download/v1.0.0/RightSend-1.0.0.pkg" target="_blank" rel="noopener">macOS</a>
+      <a href="https://gitee.com/epii/rightsend/releases/download/v1.0.0/RightSend-1.0.0.pkg" target="_blank" rel="noopener" data-role="alt" data-gh="https://github.com/epaii/rightsend/releases/latest/download/RightSend-1.0.0.pkg" data-cn="https://gitee.com/epii/rightsend/releases/download/v1.0.0/RightSend-1.0.0.pkg">macOS</a>
     </div>
     <div class="repo-row">
       <span class="zh">项目地址：</span><span class="en">Project: </span>
@@ -344,14 +348,15 @@
     <h2 class="sec-h"><span class="zh">现在就下载，三步就能用</span><span class="en">Download now, ready in three steps</span></h2>
     <p class="sec-sub"><span class="zh">下载、右键、扫码——三步之后你就知道它有多省事。</span><span class="en">Download, right-click, scan — three steps and you will see how simple it is.</span></p>
     <div class="cta-row">
-      <a href="https://github.com/epaii/rightsend/releases/latest/download/RightSend-Setup-1.0.0.exe" class="btn btn-solid" data-platform="windows"><span class="zh">下载 Windows 版</span><span class="en">Download for Windows</span></a>
-      <a href="https://github.com/epaii/rightsend/releases/latest/download/RightSend-1.0.0.pkg" class="btn btn-outline" data-platform="mac"><span class="zh">下载 macOS 版</span><span class="en">Download for macOS</span></a>
+      <a href="https://github.com/epaii/rightsend/releases/latest/download/RightSend-Setup-1.0.0.exe" class="btn btn-solid" data-platform="windows" data-role="main" data-gh="https://github.com/epaii/rightsend/releases/latest/download/RightSend-Setup-1.0.0.exe" data-cn="https://gitee.com/epii/rightsend/releases/download/v1.0.0/RightSend-Setup-1.0.0.exe"><span class="zh">下载 Windows 版</span><span class="en">Download for Windows</span></a>
+      <a href="https://github.com/epaii/rightsend/releases/latest/download/RightSend-1.0.0.pkg" class="btn btn-outline" data-platform="mac" data-role="main" data-gh="https://github.com/epaii/rightsend/releases/latest/download/RightSend-1.0.0.pkg" data-cn="https://gitee.com/epii/rightsend/releases/download/v1.0.0/RightSend-1.0.0.pkg"><span class="zh">下载 macOS 版</span><span class="en">Download for macOS</span></a>
     </div>
     <div class="cn-row">
-      <span class="cn-label"><span class="zh">国内下载（Gitee，更快）：</span><span class="en">Faster download in China (Gitee):</span></span>
-      <a href="https://gitee.com/epii/rightsend/releases/download/v1.0.0/RightSend-Setup-1.0.0.exe" target="_blank" rel="noopener">Windows</a>
+      <span class="cn-label lbl-cn"><span class="zh">国内下载（Gitee，更快）：</span><span class="en">Faster download in China (Gitee):</span></span>
+      <span class="cn-label lbl-gh"><span class="zh">备用下载（GitHub）：</span><span class="en">Alternative (GitHub):</span></span>
+      <a href="https://gitee.com/epii/rightsend/releases/download/v1.0.0/RightSend-Setup-1.0.0.exe" target="_blank" rel="noopener" data-role="alt" data-gh="https://github.com/epaii/rightsend/releases/latest/download/RightSend-Setup-1.0.0.exe" data-cn="https://gitee.com/epii/rightsend/releases/download/v1.0.0/RightSend-Setup-1.0.0.exe">Windows</a>
       <span class="cn-label">·</span>
-      <a href="https://gitee.com/epii/rightsend/releases/download/v1.0.0/RightSend-1.0.0.pkg" target="_blank" rel="noopener">macOS</a>
+      <a href="https://gitee.com/epii/rightsend/releases/download/v1.0.0/RightSend-1.0.0.pkg" target="_blank" rel="noopener" data-role="alt" data-gh="https://github.com/epaii/rightsend/releases/latest/download/RightSend-1.0.0.pkg" data-cn="https://gitee.com/epii/rightsend/releases/download/v1.0.0/RightSend-1.0.0.pkg">macOS</a>
     </div>
   </div>
 </section>
@@ -402,6 +407,27 @@
                              : (active ? 'btn-solid' : 'btn-outline'));
     if (active) btn.classList.add('btn-first');
   });
+})();
+(function () {
+  var picked = null;
+  function pick(src) {
+    if (picked) return;
+    picked = src;
+    var other = src === 'gh' ? 'cn' : 'gh';
+    document.documentElement.setAttribute('data-source', src);
+    document.querySelectorAll('[data-gh][data-cn]').forEach(function (el) {
+      var key = el.getAttribute('data-role') === 'main' ? src : other;
+      el.setAttribute('href', el.getAttribute('data-' + key));
+    });
+  }
+  function probe(url, id) {
+    var img = new Image();
+    img.onload = function () { pick(id); };
+    img.src = url + '?_=' + Date.now();
+  }
+  probe('https://github.com/favicon.ico', 'gh');
+  probe('https://gitee.com/favicon.ico', 'cn');
+  setTimeout(function () { pick('gh'); }, 2000);
 })();
 </script>
 </body>
